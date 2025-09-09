@@ -45,22 +45,24 @@ else
 
 #	read -p "输入AI模型：" MODEL
 #	read -p "请输入API地址：" URL
-	mkdir .pip
-cat << ys > .pip/pip.conf
+
+mkdir -p "$HOME/.pip"
+cat > "$HOME/.pip/pip.conf" << 'EOF'
 [global]
 index-url = http://mirrors.aliyun.com/pypi/simple/
 [install]
-trusted-host=mirrors.aliyun.com
-ys
+trusted-host = mirrors.aliyun.com
+EOF
+
 pip3 install shell-gpt
-mkdir .config/shell_gpt -pv 
-cd .config/shell_gpt/
-read -p "请输入密钥：" API_KEY
-cat << ys > .config/shell_gpt/.sgptrc
+mkdir -p "$HOME/.config/shell_gpt"
+read -p "请输入 Moonshot API 密钥: " API_KEY
+cat > "$HOME/.config/shell_gpt/.sgptrc" << EOF
 DEFAULT_MODEL=moonshot-v1-8k
 OPENAI_API_KEY=${API_KEY}
 API_BASE_URL=https://api.moonshot.cn/v1
-ys
+EOF
+
 fi
 source /etc/profile
 
