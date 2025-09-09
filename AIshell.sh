@@ -63,6 +63,7 @@ OPENAI_API_KEY=${API_KEY}
 API_BASE_URL=https://api.moonshot.cn/v1
 EOF
 
-fi
 source /etc/profile
+fi
 
+source /etc/profile
