@@ -30,7 +30,6 @@ ssl_version=$(openssl version | awk '{print $2}')
 
 if [ $ssl_version != "1.1.1t"  ]; then
     echo "失败，请手动安装openssl"
-    break
 else
     yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
     cd /AI/Python-3.12.8/
@@ -39,7 +38,6 @@ fi
 py_version=$(python3 --version | awk '{print $2}')
 if [ $py_version != "3.12.8" ]; then
      echo "失败，请手动安装python3"
-     break
 else
 #安装shellgpt
 
@@ -62,8 +60,11 @@ DEFAULT_MODEL=moonshot-v1-8k
 OPENAI_API_KEY=${API_KEY}
 API_BASE_URL=https://api.moonshot.cn/v1
 EOF
-
-source /etc/profile
 fi
+cat > /etc/profile.d/ai-env.sh << 'EOF'
+# Added by AI installer
+export PATH=$PATH:/usr/local/python3/bin:/usr/local/openssl/bin
+export LD_LIBRARY_PATH=/usr/local/openssl/lib:$LD_LIBRARY_PATH
+EOF
 
-source /etc/profile
+chmod +x /etc/profile.d/ai-env.sh
